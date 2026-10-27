@@ -1,0 +1,17 @@
+{
+  "name": "slot8-product-rest-api-lab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Product REST API Design and Inspection Kit - SBA301 Slot 08",
+  "main": "scripts/parse-json-demo.js",
+  "type": "module",
+  "scripts": {
+    "server": "json-server --watch db.json --port 5000",
+    "reset": "node scripts/reset-db.js",
+    "demo:json": "node scripts/parse-json-demo.js",
+    "test:api": "node scripts/test-api.js"
+  },
+  "dependencies": {
+    "json-server": "^0.17.4"
+  }
+}

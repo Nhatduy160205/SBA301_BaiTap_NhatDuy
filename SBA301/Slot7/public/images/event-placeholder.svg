@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" width="100%" height="100%">
+  <defs>
+    <linearGradient id="eventGrad7" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="220" fill="url(#eventGrad7)" />
+  <circle cx="200" cy="85" r="40" fill="#ffffff" opacity="0.25" />
+  <text x="200" y="95" font-family="system-ui, sans-serif" font-size="32" fill="#ffffff" text-anchor="middle" font-weight="bold">🎯</text>
+  <text x="200" y="150" font-family="system-ui, sans-serif" font-size="16" fill="#ffffff" text-anchor="middle" font-weight="600" letter-spacing="1">CAMPUS EVENT NAVIGATOR</text>
+</svg>

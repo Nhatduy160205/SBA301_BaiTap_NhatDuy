@@ -1,0 +1,60 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Mechanical Keyboard",
+      "category": "Accessories",
+      "price": 1490000,
+      "quantity": 8,
+      "status": "IN_STOCK",
+      "rating": 4.8
+    },
+    {
+      "id": 2,
+      "name": "Wireless Mouse",
+      "category": "Accessories",
+      "price": 690000,
+      "quantity": 15,
+      "status": "IN_STOCK",
+      "rating": 4.6
+    },
+    {
+      "id": 3,
+      "name": "27-inch Monitor",
+      "category": "Display",
+      "price": 5290000,
+      "quantity": 4,
+      "status": "LOW_STOCK",
+      "rating": 4.9
+    },
+    {
+      "id": 4,
+      "name": "USB-C Hub",
+      "category": "Connectivity",
+      "price": 890000,
+      "quantity": 11,
+      "status": "IN_STOCK",
+      "rating": 4.3
+    },
+    {
+      "id": 5,
+      "name": "Laptop Stand",
+      "category": "Workspace",
+      "price": 790000,
+      "quantity": 9,
+      "status": "IN_STOCK",
+      "rating": 4.5
+    }
+  ],
+  "categories": [
+    { "id": 1, "code": "ACC", "name": "Accessories", "description": "Keyboards, mice, and peripherals" },
+    { "id": 2, "code": "DSP", "name": "Display", "description": "Monitors, screens, and display arms" },
+    { "id": 3, "code": "CON", "name": "Connectivity", "description": "Hubs, cables, and network adapters" },
+    { "id": 4, "code": "WRK", "name": "Workspace", "description": "Desk organizers, stands, and ergonomics" }
+  ],
+  "reviews": [
+    { "id": 1, "productId": 1, "author": "Alice", "rating": 5, "comment": "Great tactile typing experience!" },
+    { "id": 2, "productId": 1, "author": "Bob", "rating": 4, "comment": "Smooth RGB lighting, nice build." },
+    { "id": 3, "productId": 3, "author": "Charlie", "rating": 5, "comment": "Crisp IPS panel, perfect color reproduction." }
+  ]
+}

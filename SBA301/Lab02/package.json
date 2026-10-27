@@ -1,0 +1,11 @@
+{
+  "name": "lab02-orchid-gallery-spa-root",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npm --prefix orchid-gallery-spa run dev",
+    "build": "npm --prefix orchid-gallery-spa run build",
+    "preview": "npm --prefix orchid-gallery-spa run preview",
+    "lint": "npm --prefix orchid-gallery-spa run lint"
+  }
+}

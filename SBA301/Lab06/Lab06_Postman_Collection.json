@@ -1,0 +1,275 @@
+{
+	"info": {
+		"_postman_id": "lab06-spring-security-jwt-collection",
+		"name": "Lab06 - Spring Security JWT API",
+		"description": "Collection test đầy đủ cho Lab06 Spring Boot 3 Security & JWT (Port 8005)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Public - Auth",
+			"item": [
+				{
+					"name": "POST Signup (Đăng ký tài khoản mới)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullName\": \"Nguyen Van A\",\n    \"email\": \"testuser@example.com\",\n    \"password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8005/auth/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8005",
+							"path": [
+								"auth",
+								"signup"
+							]
+						},
+						"description": "Đăng ký người dùng mới. Thành công trả về HTTP 200 kèm UserResponse."
+					},
+					"response": []
+				},
+				{
+					"name": "POST Signup - Trùng Email (Kiểm tra 409 Conflict)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullName\": \"Nguyen Van A\",\n    \"email\": \"testuser@example.com\",\n    \"password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8005/auth/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8005",
+							"path": [
+								"auth",
+								"signup"
+							]
+						},
+						"description": "Đăng ký lại với email đã có. Service kiểm tra trùng email và trả về HTTP 409 Conflict."
+					},
+					"response": []
+				},
+				{
+					"name": "POST Login (Đăng nhập - Tự động lưu Token)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.token) {",
+									"    pm.environment.set(\"jwt_token\", jsonData.token);",
+									"    pm.collectionVariables.set(\"jwt_token\", jsonData.token);",
+									"    console.log(\"Saved JWT token:\", jsonData.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"testuser@example.com\",\n    \"password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8005/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8005",
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "Đăng nhập với email và password. Trả về token JWT và expiresIn."
+					},
+					"response": []
+				},
+				{
+					"name": "POST Login - Sai Mật Khẩu (Kiểm tra 401)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"testuser@example.com\",\n    \"password\": \"wrongpassword\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8005/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8005",
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "Đăng nhập sai mật khẩu. Trả về HTTP 401 Unauthorized."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. Protected - Users (Cần Bearer Token)",
+			"item": [
+				{
+					"name": "GET Current User (/users/me - Kèm Bearer Token)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8005/users/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8005",
+							"path": [
+								"users",
+								"me"
+							]
+						},
+						"description": "Lấy thông tin tài khoản người dùng đang đăng nhập bằng Bearer token."
+					},
+					"response": []
+				},
+				{
+					"name": "GET All Users (/users - Kèm Bearer Token)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8005/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8005",
+							"path": [
+								"users"
+							]
+						},
+						"description": "Lấy danh sách tất cả người dùng trong hệ thống (chỉ người có token mới xem được)."
+					},
+					"response": []
+				},
+				{
+					"name": "GET /users/me - Không Token (Kiểm tra 401 Unauthorized)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8005/users/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8005",
+							"path": [
+								"users",
+								"me"
+							]
+						},
+						"description": "Gọi endpoint được bảo vệ nhưng KHÔNG truyền header Authorization. Kết quả mong đợi: 401 Unauthorized."
+					},
+					"response": []
+				},
+				{
+					"name": "GET /users/me - Token Sai / Giả Mạo (Kiểm tra 401)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.invalidtokenbody.invalidsignature",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8005/users/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8005",
+							"path": [
+								"users",
+								"me"
+							]
+						},
+						"description": "Gọi với token giả mạo hoặc sai định dạng. Kết quả mong đợi: 401 Unauthorized."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "jwt_token",
+			"value": ""
+		}
+	]
+}
