@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 
 export const NewsTable = ({
   newsList,
@@ -24,7 +24,7 @@ export const NewsTable = ({
             <th scope="col" className="d-none d-lg-table-cell">Thẻ (Tags)</th>
             <th scope="col" className="text-center">Trạng Thái</th>
             <th scope="col" className="d-none d-xl-table-cell">Ngày Tạo</th>
-            <th scope="col" className="text-end" style={{ width: "160px" }}>Thao Tác</th>
+            <th scope="col" className="text-center th-actions pe-3" style={{ minWidth: "140px", whiteSpace: "nowrap" }}>Thao Tác</th>
           </tr>
         </thead>
         <tbody>
@@ -36,13 +36,13 @@ export const NewsTable = ({
               <td>
                 <div
                   className="fw-bold text-body hover-text-primary cursor-pointer text-truncate"
-                  style={{ maxWidth: "320px" }}
+                  style={{ maxWidth: "250px" }}
                   onClick={() => onView(item)}
                   title="Bấm để xem chi tiết bài viết"
                 >
                   {item.title}
                 </div>
-                <div className="text-secondary small d-none d-sm-block text-truncate" style={{ maxWidth: "320px" }}>
+                <div className="text-secondary small d-none d-sm-block text-truncate" style={{ maxWidth: "250px" }}>
                   {item.content}
                 </div>
               </td>
@@ -92,8 +92,8 @@ export const NewsTable = ({
                   ? new Date(item.createdAt).toLocaleDateString("vi-VN")
                   : "-"}
               </td>
-              <td className="text-end">
-                <div className="btn-group btn-group-sm">
+              <td className="text-center td-actions pe-3" style={{ minWidth: "140px", whiteSpace: "nowrap" }}>
+                <div className="btn-group btn-group-sm shadow-sm">
                   <button
                     type="button"
                     className="btn btn-outline-info"

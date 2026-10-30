@@ -1,5 +1,5 @@
-﻿import React from "react";
-import { NavLink } from "react-router-dom";
+import React from "react";
+import { NavLink, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 export const Sidebar = () => {
@@ -8,14 +8,14 @@ export const Sidebar = () => {
   const navItems = [
     {
       to: "/dashboard",
-      icon: "bi-speedometer2",
+      icon: "bi-grid-1x2-fill",
       label: "Dashboard",
       description: "Thống kê tổng quan",
       badge: null
     },
     {
       to: "/categories",
-      icon: "bi-folder2-open",
+      icon: "bi-collection-fill",
       label: "Chuyên mục",
       description: "Quản lý danh mục tin tức",
       badge: null
@@ -27,12 +27,12 @@ export const Sidebar = () => {
       description: "Quản lý bài viết",
       badge: null
     },
-    // User management is visible only to Admin (Role 1), fulfilling Transfer Task 8.2 & Core Role Policy!
+    // User management is visible only to Admin (Role 1)
     ...(isAdmin
       ? [
           {
             to: "/users",
-            icon: "bi-people",
+            icon: "bi-people-fill",
             label: "Tài khoản",
             description: "Quản lý người dùng & phân quyền",
             badge: "Admin"
@@ -41,7 +41,7 @@ export const Sidebar = () => {
       : []),
     {
       to: "/settings",
-      icon: "bi-gear",
+      icon: "bi-sliders2",
       label: "Cài đặt",
       description: "Cấu hình hệ thống & hồ sơ",
       badge: null
@@ -49,59 +49,102 @@ export const Sidebar = () => {
   ];
 
   return (
-    <aside className="funews-sidebar bg-body border-end d-flex flex-column py-3 px-2 shadow-sm">
-      <div className="sidebar-section px-3 mb-2 text-uppercase text-secondary fw-bold" style={{ fontSize: "0.7rem", letterSpacing: "1px" }}>
-        Hệ Thống Quản Trị
+    <aside className="funews-full-sidebar shadow-sm">
+      {/* Brand Header */}
+      <div className="sidebar-brand d-flex align-items-center justify-content-between">
+        <Link to="/dashboard" className="d-flex align-items-center gap-3 text-decoration-none">
+          <div className="rounded-3 overflow-hidden shadow-sm p-1 bg-dark d-flex align-items-center justify-content-center border border-secondary border-opacity-25" style={{ width: "42px", height: "42px" }}>
+            <img
+              src="/assets/logo.jpg"
+              alt="FUNews AI Logo"
+              style={{ width: "34px", height: "34px", objectFit: "cover", borderRadius: "6px" }}
+            />
+          </div>
+          <div className="sidebar-brand-name">
+            <div className="fw-bold text-white lh-1 fs-6">
+              FUNews<span className="text-gradient-emerald">Admin</span>
+            </div>
+            <small className="text-secondary opacity-75" style={{ fontSize: "0.7rem" }}>
+              FPT University Portal
+            </small>
+          </div>
+        </Link>
+        <span className="brand-badge d-none d-lg-inline">SBA301</span>
       </div>
 
-      <nav className="nav nav-pills flex-column gap-1 flex-grow-1">
-        {navItems.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            className={({ isActive }) =>
-              `nav-link d-flex align-items-center justify-content-between px-3 py-2 rounded-3 transition-all ${
-                isActive
-                  ? "active bg-primary text-white shadow-sm fw-semibold"
-                  : "text-body hover-bg-subtle"
-              }`
-            }
-          >
-            <div className="d-flex align-items-center gap-3">
-              <i className={`bi ${item.icon} fs-5`}></i>
-              <div>
-                <div className="lh-1 mb-0">{item.label}</div>
-                <small
-                  className="d-none d-lg-block text-truncate opacity-75"
-                  style={{ fontSize: "0.72rem" }}
+      {/* Navigation Section */}
+      <div className="p-3 flex-grow-1 overflow-y-auto">
+        <div className="sidebar-section-title px-2 mb-3 text-uppercase text-secondary fw-bold" style={{ fontSize: "0.68rem", letterSpacing: "1px" }}>
+          Menu Điều Hướng
+        </div>
+
+        <nav className="nav flex-column">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              className={({ isActive }) =>
+                `nav-item-link d-flex align-items-center justify-content-between ${isActive ? "active" : ""}`
+              }
+            >
+              <div className="d-flex align-items-center gap-2 text-truncate me-2" style={{ minWidth: 0, flex: 1 }}>
+                <div className="nav-icon-wrap flex-shrink-0">
+                  <i className={`bi ${item.icon}`}></i>
+                </div>
+                <div className="sidebar-text-label text-truncate" style={{ minWidth: 0 }}>
+                  <div className="lh-1 mb-1 text-truncate fw-semibold">{item.label}</div>
+                  <small
+                    className="d-none d-lg-block text-truncate opacity-75"
+                    style={{ fontSize: "0.72rem" }}
+                  >
+                    {item.description}
+                  </small>
+                </div>
+              </div>
+              {item.badge && (
+                <span
+                  className="badge bg-warning text-dark rounded-pill px-2 py-1 sidebar-text-label flex-shrink-0 ms-auto shadow-sm"
+                  style={{ fontSize: "0.68rem", lineHeight: "1.1", fontWeight: "700" }}
                 >
-                  {item.description}
-                </small>
+                  {item.badge}
+                </span>
+              )}
+            </NavLink>
+          ))}
+        </nav>
+      </div>
+
+      {/* Modern Profile Card at Sidebar Bottom */}
+      <div className="sidebar-footer">
+        <div className="d-flex align-items-center justify-content-between p-2 rounded-3" style={{ background: "rgba(255, 255, 255, 0.05)" }}>
+          <div className="d-flex align-items-center gap-2">
+            <div
+              className={`rounded-circle d-flex align-items-center justify-content-center text-white fw-bold shadow-sm ${
+                isAdmin ? "bg-success" : "bg-primary"
+              }`}
+              style={{ width: "34px", height: "34px", fontSize: "0.85rem" }}
+            >
+              {currentUser?.username?.charAt(0).toUpperCase() || "U"}
+            </div>
+            <div className="sidebar-text-label lh-1">
+              <span className="fw-semibold text-white d-block" style={{ fontSize: "0.82rem" }}>
+                {currentUser?.fullName || currentUser?.username || "Guest"}
+              </span>
+              <div className="d-flex align-items-center gap-1 mt-1">
+                <span className="status-indicator online"></span>
+                <span className="text-secondary" style={{ fontSize: "0.7rem" }}>
+                  {currentUser?.roleName || "User"}
+                </span>
               </div>
             </div>
-            {item.badge && (
-              <span className="badge bg-warning text-dark rounded-pill px-2 py-1" style={{ fontSize: "0.65rem" }}>
-                {item.badge}
-              </span>
-            )}
-          </NavLink>
-        ))}
-      </nav>
-
-      {/* User Info Card in Sidebar Bottom */}
-      <div className="sidebar-footer pt-3 mt-auto border-top px-3">
-        <div className="d-flex align-items-center justify-content-between p-2 rounded-3 bg-body-tertiary">
-          <div className="d-flex align-items-center gap-2">
-            <span className="status-indicator online"></span>
-            <span className="small text-secondary fw-semibold">
-              {currentUser?.username || "Guest"}
-            </span>
           </div>
-          <span className="badge bg-info-subtle text-info border border-info-subtle">
-            v1.0.0
+          <span className="badge bg-dark text-secondary border border-secondary border-opacity-25 sidebar-text-label" style={{ fontSize: "0.68rem" }}>
+            v2.1
           </span>
         </div>
       </div>
     </aside>
   );
 };
+
+export default Sidebar;

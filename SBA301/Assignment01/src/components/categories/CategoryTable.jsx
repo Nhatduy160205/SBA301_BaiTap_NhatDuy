@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 
 export const CategoryTable = ({
   categories,
@@ -21,7 +21,7 @@ export const CategoryTable = ({
             <th scope="col" className="text-center">Số Bài Viết</th>
             <th scope="col" className="text-center">Trạng Thái</th>
             <th scope="col" className="d-none d-lg-table-cell">Ngày Tạo</th>
-            <th scope="col" className="text-end" style={{ width: "140px" }}>Thao Tác</th>
+            <th scope="col" className="text-center th-actions pe-3" style={{ minWidth: "120px", whiteSpace: "nowrap" }}>Thao Tác</th>
           </tr>
         </thead>
         <tbody>
@@ -63,8 +63,8 @@ export const CategoryTable = ({
                     ? new Date(category.createdAt).toLocaleDateString("vi-VN")
                     : "-"}
                 </td>
-                <td className="text-end">
-                  <div className="btn-group btn-group-sm">
+                <td className="text-center td-actions pe-3" style={{ minWidth: "120px", whiteSpace: "nowrap" }}>
+                  <div className="btn-group btn-group-sm shadow-sm">
                     <button
                       type="button"
                       className="btn btn-outline-primary"
