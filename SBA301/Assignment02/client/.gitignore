@@ -1,0 +1,9 @@
+# Author: Trần Nhật Duy - CE190982
+# Client Git Ignore Rules
+node_modules
+/dist
+-debug.log*
+.DS_Store
+.idea
+.vscode
+
